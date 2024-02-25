@@ -6,17 +6,17 @@
     "description": "A web app for finding after school activities",
     "icons": [
         {
-            "src": "./src/assets/images/logo-192x192.png",
+            "src": "./logo-192x192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "./src/assets/images/logo-512x512.png",
+            "src": "./logo-512x512.png",
             "sizes": "512x512",
             "type": "image/png"
         }
     ],
-    "start_url": "/",
+    "start_url": "/dopo-frontend-III/",
     "display": "standalone",
     "theme_color": "#ffffff",
     "background_color": "#ffffff"
