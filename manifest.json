@@ -1,0 +1,23 @@
+{
+    "name": "Dopo School Activities",
+    "origin": "*",
+    "short_name": "Dopo",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "description": "A web app for finding after school activities",
+    "icons": [
+        {
+            "src": "./src/assets/images/logo-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "./src/assets/images/logo-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff"
+}
