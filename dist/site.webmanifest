@@ -16,7 +16,7 @@
             "type": "image/png"
         }
     ],
-    "start_url": "/",
+    "start_url": "/dopo-frontend-III/",
     "display": "standalone",
     "theme_color": "#ffffff",
     "background_color": "#ffffff"
