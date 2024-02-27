@@ -10,6 +10,7 @@ export default {
     },
     data() {
         return {
+            url: "https://dopo-api.eu-west-2.elasticbeanstalk.com/activities",
             activities: [],
             sortByProperty: "title",
             sortOrder: "ascending",
@@ -19,7 +20,8 @@ export default {
             checkout: {
                 fullname: "",
                 mobile: ""
-            }
+            },
+            viewTestConsole: false
         }
     },
     methods: {
@@ -163,7 +165,28 @@ export default {
             } catch (error) {
                 console.log(error)
             }
-        }
+        },
+        toggleTestConsole: function () {
+            this.viewTestConsole = !this.viewTestConsole;
+        },
+        deleteAllCaches() {
+            caches.keys().then(function (names) {
+                for (let name of names)
+                    caches.delete(name);
+            });
+            console.log("All Caches Deleted");
+        },
+        unregisterAllServiceWorkers() {
+            navigator.serviceWorker.getRegistrations().then(function (registrations) {
+                for (let registration of registrations) {
+                    registration.unregister()
+                }
+            });
+            console.log("ServiceWorkers Unregistered");
+        },
+        reloadPage() {
+            window.location.reload(true);
+        },
     },
     computed: {
         filteredActivities: function () {
@@ -224,10 +247,33 @@ export default {
             <div class="w-full sm:w-[25%] h-[100px]">
                 <img src="./assets/images/pencils.jpg" class="w-full h-full object-cover" />
             </div>
-            <div
-                class="flex-1 w-full sm:w-auto py-7 px-5 sm:px-10 sm:px-14 flex items-center justify-center sm:justify-start">
-                <p class="text-2xl page_title font-black" v-if="viewActivities">After School Activities</p>
-                <p class="text-2xl page_title font-black" v-else>Checkout</p>
+            <div class="flex-1 w-full sm:w-auto py-7 px-5 sm:px-10 sm:px-14 flex gap-5 flex-col">
+                <div class="flex justify-between w-full">
+                    <p class="text-2xl page_title font-black" v-if="viewActivities">After School Activities</p>
+                    <p class="text-2xl page_title font-black" v-else>Checkout</p>
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="toggleTestConsole">
+                        Test Console
+                    </button>
+                </div>
+                <div class="flex gap-3 flex-wrap" v-if="viewTestConsole">
+                    <a :href="url" target="_blank"
+                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex gap-3">
+                        <i class="bi bi-shield-fill-check"></i>
+                        Accept Exception
+                    </a>
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex gap-3" @click="reloadPage">
+                        <i class="bi bi-arrow-clockwise"></i>
+                        Reload Page
+                    </button>
+                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex gap-3" @click="unregisterAllServiceWorkers">
+                        <i class="bi bi-trash"></i>
+                        Unregister Service Worker
+                    </button>
+                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex gap-3" @click="deleteAllCaches">
+                        <i class="bi bi-trash"></i>
+                        Delete All Cache
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -260,8 +306,8 @@ export default {
                 </div>
             </div>
 
-            <Lessons :activities="filteredActivities" @addToCart="addToCart" />
-            
+            <Lessons :activities="filteredActivities" @addToCart="addToCart" :searchKeyword="searchKeyword" />
+
         </div>
 
         <div class="flex flex-wrap" v-else>
@@ -295,10 +341,8 @@ export default {
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

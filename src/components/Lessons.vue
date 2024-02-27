@@ -32,14 +32,14 @@
         <div class="w-full h-full flex flex-col justify-center items-center" v-else>
             <i class="bi bi-emoji-astonished text-[6em]"></i>
             <p class="text-2xl font-black page_title mb-2">Nothing Found</p>
-            <p>Can't find any activity with "{{ searchKeyword }}" as Title or Location</p>
+            <p class="text-center">Can't find any activity with "{{ searchKeyword }}" as Title or Location</p>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['activities'],
+    props: ['activities', 'searchKeyword'],
     methods: {
         disableAddToCart: function () {
             return (id) => {
